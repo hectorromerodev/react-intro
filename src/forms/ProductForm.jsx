@@ -5,8 +5,13 @@ import {
   Box,
   Grid,
   TextField,
+  InputAdornment,
+  IconButton,
+  Tooltip
 } from "@mui/material";
 import { v4 as uuidv4 } from 'uuid';
+
+import ShuffleIcon from '@mui/icons-material/Shuffle';
 
 
 
@@ -128,6 +133,21 @@ const ProductForm = ({ onSubmit }) => {
                 fullWidth
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message}
+                InputProps={{
+                  endAdornment:
+                    <InputAdornment position="end">
+                      <Tooltip title="Set a random image">
+                        <IconButton
+                          aria-label="Set Random Image"
+                          onClick={generateRandomImage}
+                          edge="end"
+                        >
+                          <ShuffleIcon />
+                        </IconButton>
+                      </Tooltip>
+                      
+                    </InputAdornment>
+                }}
               />
             )}
           />
