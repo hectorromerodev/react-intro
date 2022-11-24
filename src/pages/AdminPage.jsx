@@ -52,12 +52,13 @@ const AdminPage = ({ allProducts, setAllProducts}) => {
         }}>
           {
             allProducts.map(product => (
-              <ProductItemCard
-                key={product.id}
-                product={product}
-                onDelete={handleOnDelete}
-                onEdit={handleOnEdit}
-              />
+              <Box key={product.id}>
+                <ProductItemCard
+                  product={product}
+                  onDelete={handleOnDelete}
+                  onEdit={handleOnEdit}
+                />
+              </Box>
             ))
 
           }
