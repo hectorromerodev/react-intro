@@ -1,20 +1,26 @@
 
 import {
   Card, CardMedia, CardContent, CardActions, Typography,
-  Button, Box, CardHeader, Chip
+  Button, Box, Chip
 } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
-const ProductItemCard = ({ product, onDelete, onEdit, key }) => {
+const ProductItemCard = ({ product, onDelete, onEdit }) => {
   
   const { name, description, imageUrl, price } = product;
 
+  const formattedPrice = (price) => {
+    return price.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+  }
+
+
   return (
     <Card
-      key={key}
       sx={{
         maxWidth: 345,
         position: 'relative',
@@ -37,7 +43,7 @@ const ProductItemCard = ({ product, onDelete, onEdit, key }) => {
 
           <Chip
             color='secondary'
-            label={<Typography variant='h6' >$ {price}</Typography>}
+            label={<Typography variant='h6' >{formattedPrice(price)}</Typography>}
             sx={{
               fontWeight: 'bold',
             }}
