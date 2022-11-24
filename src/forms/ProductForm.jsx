@@ -69,6 +69,7 @@ const ProductForm = ({ onSubmit }) => {
                 fullWidth
                 disabled
                 size='small'
+                helperText="This field is auto generated with a UUID"
               />
             )}
           />
