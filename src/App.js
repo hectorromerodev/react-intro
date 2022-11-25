@@ -1,26 +1,23 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar'
 import AdminPage from './pages/AdminPage';
+import ShopPage from './pages/ShopPage';
 
 function App() {
 
-  const [isAdminVisible, setIsAdminVisible] = useState(false);
+  
   const [allProducts, setAllProducts] = useState([]);
 
   return (
-    <Fragment>
-      <Navbar
-        setIsAdminVisible={setIsAdminVisible}
-      />
-      {
-        isAdminVisible &&
-        <AdminPage
-          allProducts={allProducts}
-          setAllProducts={setAllProducts}
-        />
-      }
-    </Fragment>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/admin" element={<AdminPage allProducts={allProducts} setAllProducts={setAllProducts} />} />
+        <Route path="/shop" element={<ShopPage allProducts={allProducts} />} />
+      </Routes>
+    </>
 
   )
 }
