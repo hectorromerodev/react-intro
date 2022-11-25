@@ -13,9 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 
-
-
-const ProductForm = ({ onSubmit }) => {
+const ProductForm = ({ onSubmit, product }) => {
 
   const defaultValues = {
     id: uuidv4(),
@@ -37,9 +35,9 @@ const ProductForm = ({ onSubmit }) => {
     description: string(),
     imageUrl: string().url('You need to provide a valid URL (http:// or https://)'),
   });
-
+ 
   const { control, handleSubmit, watch, reset, setValue } = useForm({
-    defaultValues,
+    defaultValues: !!product ? product : defaultValues,
     resolver: yupResolver(productSchema),
     mode: 'all',
   });
@@ -47,128 +45,144 @@ const ProductForm = ({ onSubmit }) => {
   const imageUrlValue = watch('imageUrl');
 
   return (
-    <Box
-      id="product-form"
-      component="form"
-      onReset={() => reset(defaultValues)}
-      onSubmit={handleSubmit(onSubmit)}
-      sx={{
-        padding: '1.5rem'
-      }}
-    >
-      <Grid container spacing={4} justifyContent="center">
-        <Grid item xs={6}>
-          <Controller
-            name="id"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="ID"
-                variant="outlined"
-                fullWidth
-                disabled
-                size='small'
-                helperText="This field is auto generated with a UUID"
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={10}>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Name"
-                variant="outlined"
-                fullWidth
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={10}>
-          <Controller
-            control={control}
-            name="price"
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Price"
-                variant="outlined"
-                fullWidth
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-              />  
-            )}
-          />
-        </Grid>
-        <Grid item xs={10}>
-          <Controller
-            control={control}
-            name="description"
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Description"
-                variant="outlined"
-                fullWidth
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={10}>
-          <Controller
-            control={control}
-            name="imageUrl"
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Image URL"
-                variant="outlined"
-                fullWidth
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-                InputProps={{
-                  endAdornment:
-                    <InputAdornment position="end">
-                      <Tooltip title="Set a random image">
-                        <IconButton
-                          aria-label="Set Random Image"
-                          onClick={generateRandomImage}
-                          edge="end"
-                        >
-                          <ShuffleIcon />
-                        </IconButton>
-                      </Tooltip>
-                      
-                    </InputAdornment>
-                }}
-              />
-            )}
-          />
-        </Grid>
-        {
-          !!imageUrlValue &&
-            <Grid item xs={10}>
-                <Box 
-                  component="img"
-                  src={imageUrlValue}
-                  sx={{
-                    width: '100%',
-                    border: '1px solid #ccc',
-                    borderRadius: '5px',
+    <>
+      <Box
+        id="product-form"
+        component="form"
+        onReset={() => reset(defaultValues)}
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{
+          padding: '.5rem 0'
+        }}
+      >
+        <Grid container
+          // direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item xs={10}>
+            <Controller
+              name="id"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="ID"
+                  variant="outlined"
+                  fullWidth
+                  disabled
+                  size='small'
+                  helperText="This field is auto generated with a UUID, you can't edit it."
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={10}>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Name"
+                  size='small'
+                  variant="outlined"
+                  fullWidth
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={10}>
+            <Controller
+              control={control}
+              name="price"
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Price"
+                  size='small'
+                  variant="outlined"
+                  fullWidth
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />  
+              )}
+            />
+          </Grid>
+          <Grid item xs={10}>
+            <Controller
+              control={control}
+              name="description"
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Description"
+                  multiline
+                  size='small'
+                  rows={2}
+                  variant="outlined"
+                  fullWidth
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={10}>
+            <Controller
+              control={control}
+              name="imageUrl"
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Image URL"
+                  size='small'
+                  variant="outlined"
+                  fullWidth
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                  InputProps={{
+                    endAdornment:
+                      <InputAdornment position="end">
+                        <Tooltip title="Set a random image">
+                          <IconButton
+                            aria-label="Set Random Image"
+                            onClick={generateRandomImage}
+                            edge="end"
+                          >
+                            <ShuffleIcon />
+                          </IconButton>
+                        </Tooltip>
+                        
+                      </InputAdornment>
                   }}
                 />
-              </Grid>
-        }
-      </Grid>
-    </Box>
+              )}
+            />
+          </Grid>
+          {
+            !!imageUrlValue &&
+            <Grid item xs={10}> 
+                  <Box 
+                    component="img"
+                    src={imageUrlValue}
+                    sx={{
+                      width: '100%',
+                      height: '20rem',
+                      border: '1px solid #ccc',
+                      borderRadius: '5px',
+                      padding: '5px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </Grid>
+          }
+        </Grid>
+      </Box>
+    </>
   )
 };
 
