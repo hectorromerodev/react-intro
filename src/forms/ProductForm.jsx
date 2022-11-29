@@ -24,7 +24,8 @@ const ProductForm = ({ onSubmit, product }) => {
   }
 
   const generateRandomImage = () => {
-    const randomImage = `https://random.imagecdn.app/v1/image?width=150&height=150&random=${uuidv4()}`;
+    // const randomImage = `https://random.imagecdn.app/v1/image?width=150&height=150&random=${uuidv4()}`;
+    const randomImage = `https://picsum.photos/150/150?random=${uuidv4()}`;
     setValue('imageUrl', randomImage);
   }
 
