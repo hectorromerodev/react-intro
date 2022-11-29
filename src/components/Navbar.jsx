@@ -6,12 +6,14 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 
-import { Link } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCardIcon from "@mui/icons-material/ShoppingCart";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <AppBar position="static">
@@ -58,7 +60,10 @@ const Navbar = () => {
               </Link>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <IconButton sx={{ p: 0 }}>
+              <IconButton 
+                sx={{ p: 0 }}
+                onClick={() => navigate("/shop-cart") }
+                >
                 <ShoppingCardIcon sx={{ color: "white" }} />
               </IconButton>
             </Box>
