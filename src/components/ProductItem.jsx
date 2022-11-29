@@ -67,7 +67,7 @@ const ProductItemCard = ({ product, onDelete, onEdit, variant }) => {
       }}>
         <CardMedia
           component="img" 
-          height="200"
+          height="150"
           image={imageUrl}
           alt={name}
         />
