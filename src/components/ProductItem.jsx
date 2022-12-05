@@ -92,7 +92,7 @@ const ProductItemCard = ({ product, onDelete, onEdit, variant }) => {
             color="text.secondary"
             maxHeight="6rem"
             minHeight="6rem"
-            overflow="scroll"
+            overflow="auto"
             children={description}
           />
         </CardContent>
