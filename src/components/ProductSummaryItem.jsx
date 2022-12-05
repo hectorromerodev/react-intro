@@ -5,16 +5,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import { FormattedPrice } from '../shared/utils';
+import InputQtyCart from './InputQtyCart';
 
 
-const ProductSummaryItem = ({ product }) => {
-    const { name, description, imageUrl, price } = product;    
+const ProductSummaryItem = ({ product, changeQty }) => {
+    const { name, description, imageUrl, price } = product; 
     
     return (
         <>
             <Card sx={{
                 display:"flex",
                 padding: "1rem",
+                boxShadow: 'none'
             }}>
 
                 <CardMedia 
@@ -62,9 +64,10 @@ const ProductSummaryItem = ({ product }) => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
-                        }}>
-                            <Typography variant="subtitle1" component="div" children="Quantity" />
-                            <Typography variant="subtitle1" component="div" children="1" />
+                            }}
+                        >
+                            <InputQtyCart 
+                                product={product} onChange={changeQty} />
                         </Box>
                     </CardContent>
                     
